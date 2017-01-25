@@ -8,4 +8,8 @@ class Request
     @referer = nil
     @headers = {}
   end
+
+  def has_payload?
+    !payload.nil?
+  end
 end
