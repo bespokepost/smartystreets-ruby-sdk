@@ -1,6 +1,6 @@
-require 'smartystreets_ruby_sdk/static_credentials'
-require 'smartystreets_ruby_sdk/us_street/client_builder'
-require 'smartystreets_ruby_sdk/us_street/lookup'
+require_relative '../lib/smartystreets_ruby_sdk/static_credentials'
+require_relative '../lib/smartystreets_ruby_sdk/us_street/client_builder'
+require_relative '../lib/smartystreets_ruby_sdk/us_street/lookup'
 
 class USStreetMultipleAddressExample
   def run

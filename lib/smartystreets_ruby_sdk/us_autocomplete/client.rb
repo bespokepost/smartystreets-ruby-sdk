@@ -11,7 +11,9 @@ module USAutocomplete
 
     def send_lookup(lookup)
       smarty_request = Request.new
-      smarty_request.parameters.merge!(parameterize_lookup(lookup))
+
+      # NOTE: US Autocomplete requests are all GET requests so the payload is set on parameters
+      smarty_request.add_parameters(lookup.to_hash)
 
       response = @sender.send(smarty_request)
 
@@ -22,17 +24,6 @@ module USAutocomplete
     end
 
     private
-
-    def parameterize_lookup(lookup)
-      params = {}
-      %w(prefix suggestions city_filter state_filter prefer geolocate geolocate_precision).each do |field|
-        val = lookup.send(field)
-        next if val.nil?
-
-        params[field] = URI.escape(val)
-      end
-      params
-    end
 
     def format_response(raw_response)
       suggestions = if raw_response.nil?

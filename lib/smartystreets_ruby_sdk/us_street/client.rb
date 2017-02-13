@@ -16,10 +16,9 @@ module USStreet
     end
 
     def send_batch(batch)
-      smarty_request = Request.new
-
       return if batch.size == 0
 
+      smarty_request = Request.new
       converted_lookups = remap_keys(batch.all_lookups)
       smarty_request.payload = @serializer.serialize(converted_lookups)
 
@@ -34,25 +33,7 @@ module USStreet
     end
 
     def remap_keys(obj)
-      converted_obj = []
-      obj.each { |lookup|
-        converted_lookup = {}
-
-        converted_lookup['street'] = lookup.street
-        converted_lookup['street2'] = lookup.street2
-        converted_lookup['secondary'] = lookup.secondary
-        converted_lookup['city'] = lookup.city
-        converted_lookup['state'] = lookup.state
-        converted_lookup['zipcode'] = lookup.zipcode
-        converted_lookup['lastline'] = lookup.lastline
-        converted_lookup['addressee'] = lookup.addressee
-        converted_lookup['urbanization'] = lookup.urbanization
-        converted_lookup['match'] = lookup.match
-        converted_lookup['candidates'] = lookup.candidates
-
-        converted_obj.push(converted_lookup)
-      }
-      converted_obj
+      obj.map(&:to_hash)
     end
 
     def assign_candidates_to_lookups(batch, candidates)

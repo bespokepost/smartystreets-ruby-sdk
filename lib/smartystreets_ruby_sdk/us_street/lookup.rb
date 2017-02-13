@@ -21,5 +21,21 @@ module USStreet
       @candidates = candidates
       @result = []
     end
+
+    def to_hash
+      {
+        'street' => @street,
+        'street2' => @street2,
+        'secondary' => @secondary,
+        'city' => @city,
+        'state' => @state,
+        'zipcode' => @zipcode,
+        'lastline' => @lastline,
+        'addressee' => @addressee,
+        'urbanization' => @urbanization,
+        'match' => @match,
+        'candidates' => @candidates,
+      }
+    end
   end
 end

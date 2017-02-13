@@ -15,5 +15,17 @@ module USAutocomplete
       @geolocate_precision = geolocate_precision
       @result = []
     end
+
+    def to_hash
+      {
+        'prefix' => @prefix,
+        'suggestions' => @suggestions,
+        'city_filter' => @city_filter,
+        'state_filter' => @state_filter,
+        'prefer' => @prefer,
+        'geolocate' => @geolocate,
+        'geolocate_precision' => @geolocate_precision,
+      }
+    end
   end
 end

@@ -12,4 +12,10 @@ class Request
   def has_payload?
     !payload.nil?
   end
+
+  def add_parameters(params)
+    params.each do |key, val|
+      @parameters[key] = URI.escape(val) unless val.nil?
+    end
+  end
 end
