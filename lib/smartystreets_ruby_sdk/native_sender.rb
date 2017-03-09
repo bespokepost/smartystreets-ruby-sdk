@@ -29,9 +29,14 @@ class NativeSender
 
   def self.build_request(smarty_request)
     query = create_query(smarty_request)
-    request = Net::HTTP::Post.new(URI.parse("#{smarty_request.url_prefix}?#{query}"))
-    request.content_type = 'application/json'
-    request.body = smarty_request.payload
+    uri = URI.parse("#{smarty_request.url_prefix}?#{query}")
+    if smarty_request.has_payload?
+      request = Net::HTTP::Post.new(uri)
+      request.content_type = 'application/json'
+      request.body = smarty_request.payload
+    else
+      request = Net::HTTP::Get.new(uri)
+    end
     request['User-Agent'] = "smartystreets (sdk:ruby@#{SmartystreetsRubySdk::VERSION})"
     request['Referer'] = smarty_request.referer if smarty_request.referer != nil
     set_custom_headers(smarty_request.headers, request)
